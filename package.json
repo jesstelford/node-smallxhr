@@ -1,0 +1,24 @@
+{
+  "name": "smallxhr",
+  "version": "0.0.0",
+  "description": "Very Small XHR library for easy, minimal cross-browser requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesstelford/node-smallxhr.git"
+  },
+  "keywords": [
+    "xhr",
+    "request",
+    "tinyxhr"
+  ],
+  "author": "Jess Telford <hi@jes.st> (http://jes.st)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesstelford/node-smallxhr/issues"
+  },
+  "homepage": "https://github.com/jesstelford/node-smallxhr#readme"
+}
