@@ -2,39 +2,39 @@
 
 module.exports = function smallxhr(url, data, callback, method, contenttype, timeout) {
 
-	var requestTimeout,
+  var requestTimeout,
       xhr;
 
-	try {
+  try {
     xhr = new XMLHttpRequest();
-	} catch(e) {
-		try {
+  } catch(e) {
+    try {
       xhr = new ActiveXObject("Msxml2.XMLHTTP");
     } catch (e) {
       return null;
     }
-	}
+  }
 
-	requestTimeout = setTimeout(function() {
-		xhr.abort();
+  requestTimeout = setTimeout(function() {
+    xhr.abort();
     xhr.status = '408';
     xhr.responseText = 'Network timeout exceeded';
     callback(new Error("smallxhr: aborted by a timeout"), null, xhr);
-	}, timeout || 5000);
+  }, timeout || 5000);
 
-	xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function() {
 
     var error = null;
 
-		if (xhr.readyState != 4) {
+    if (xhr.readyState != 4) {
       return;
     }
 
-		clearTimeout(requestTimeout);
+    clearTimeout(requestTimeout);
 
-		var response = xhr.responseText
+    var response = xhr.responseText
 
-		try {
+    try {
       response = JSON.parse(response);
     } catch(e) {}
 
@@ -42,20 +42,20 @@ module.exports = function smallxhr(url, data, callback, method, contenttype, tim
       error = new Error("smallxhr: server response status is " + xhr.status);
     }
 
-		callback(error, response, xhr);
-	}
+    callback(error, response, xhr);
+  }
 
   method = (method ? method.toUpperCase() : "GET");
 
-	xhr.open(method, url, true);
+  xhr.open(method, url, true);
 
  	if (!data) {
     xhr.send();
-	} else {
+  } else {
     contenttype = contenttype || 'application/x-www-form-urlencoded';
-		xhr.setRequestHeader('Content-type', contenttype);
+    xhr.setRequestHeader('Content-type', contenttype);
     xhr.send(data)
-	}
+  }
 
 }
 
