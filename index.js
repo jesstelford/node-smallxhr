@@ -17,8 +17,6 @@ module.exports = function smallxhr(url, data, callback, method, contenttype, tim
 
   requestTimeout = setTimeout(function() {
     xhr.abort();
-    xhr.status = '408';
-    xhr.responseText = 'Network timeout exceeded';
     callback(new Error("smallxhr: aborted by a timeout"), null, xhr);
   }, timeout || 5000);
 
