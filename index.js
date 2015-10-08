@@ -1,5 +1,13 @@
 'use strict';
 
+function SmallXhrError(message, type) {
+  this.name = 'SmallXhrError';
+  this.message = message;
+  this.type = type || 'http';
+  this.stack = (new Error()).stack;
+}
+SmallXhrError.prototype = new Error;
+
 module.exports = function smallxhr(url, data, callback, method, contenttype, timeout) {
 
   var requestTimeout,
@@ -17,7 +25,7 @@ module.exports = function smallxhr(url, data, callback, method, contenttype, tim
 
   requestTimeout = setTimeout(function() {
     xhr.abort();
-    callback(new Error("smallxhr: aborted by a timeout"), null, xhr);
+    callback(new SmallXhrError("smallxhr: aborted by a timeout", 'timeout'), null, xhr);
   }, timeout || 5000);
 
   xhr.onreadystatechange = function() {
@@ -37,7 +45,7 @@ module.exports = function smallxhr(url, data, callback, method, contenttype, tim
     } catch(e) {}
 
     if (xhr.status != 200) {
-      error = new Error("smallxhr: server response status is " + xhr.status);
+      error = new SmallXhrError("smallxhr: server response status is " + xhr.status);
     }
 
     callback(error, response, xhr);

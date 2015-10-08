@@ -49,6 +49,18 @@ smallxhr(url, data, callback, method, contenttype, timeout)
  * `contenttype` - Any HTTP content type (default: `application/x-www-form-urlencoded`)
  * `timeout` - time in milliseconds before the request should be cancelled (default: `5000`)
 
+#### Callback
+
+```javascript
+function(error, data, xhrResponse)
+```
+
+ * `error` - An `Error` object with a custom attribute `type`
+   * `error.type` - one of `'timeout'` for a timeout error, or `'http'` to
+     indicate you should check the value of `xhrResponse.statusCode`.
+ * `data` - Any data returned from the request
+ * `xhrResponse` - The XMLHttpRequest object
+
 ## Installation
 
 ```
