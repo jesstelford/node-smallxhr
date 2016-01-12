@@ -8,10 +8,13 @@ function SmallXhrError(message, type) {
 }
 SmallXhrError.prototype = new Error;
 
-module.exports = function smallxhr(url, data, callback, method, contenttype, timeout) {
+module.exports = function smallxhr(url, data, callback, method, contenttype, timeout, headers) {
 
   var requestTimeout,
-      xhr;
+      xhr,
+      headerKey;
+
+  headers = headers || {};
 
   try {
     xhr = new XMLHttpRequest();
@@ -54,6 +57,12 @@ module.exports = function smallxhr(url, data, callback, method, contenttype, tim
   method = (method ? method.toUpperCase() : "GET");
 
   xhr.open(method, url, true);
+
+  for (headerKey in headers) {
+    if (headers.hasOwnProperty(headerKey)) {
+      xhr.setRequestHeader(headerKey, headers[headerKey]);
+    }
+  }
 
  	if (!data) {
     xhr.send();

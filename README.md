@@ -39,7 +39,7 @@ xhr('http://example.com', postData, function(error, data, xhrResponse) {
 ### API
 
 ```javascript
-smallxhr(url, data, callback, method, contenttype, timeout)
+smallxhr(url, data, callback, method, contenttype, timeout, headers)
 ```
 
  * `url` - The url to send the request to
@@ -48,6 +48,7 @@ smallxhr(url, data, callback, method, contenttype, timeout)
  * `method` - Any HTTP verb
  * `contenttype` - Any HTTP content type (default: `application/x-www-form-urlencoded`)
  * `timeout` - time in milliseconds before the request should be cancelled (default: `5000`)
+ * `headers` - key-value pairs for specifying extra headers to be sent (default: `{}`)
 
 #### Callback
 
